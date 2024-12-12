@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import App from "./App";
@@ -16,7 +16,7 @@ export const rootRouter = createBrowserRouter([
   },
   {
     path: "/reactapp2",
-    element: <Reactapp2 />,
+    element: <Suspense fallback={<p>Loading...</p>}> <Reactapp2 /></Suspense>,
   },
   {
     path: "*",
