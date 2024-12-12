@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import App from "./App";
 import { Page2 } from "./page2/Page2";
+const Reactapp2 = React.lazy(() => import("app2/App"));
 
 export const rootRouter = createBrowserRouter([
   {
@@ -11,7 +12,11 @@ export const rootRouter = createBrowserRouter([
   },
   {
     path: "/page2",
-    element: <Page2 />
+    element: <Page2 />,
+  },
+  {
+    path: "/reactapp2",
+    element: <Reactapp2 />,
   },
   {
     path: "*",

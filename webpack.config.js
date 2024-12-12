@@ -2,6 +2,9 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const isProduction = process.env.NODE_ENV == "production";
 const stylesHandler = "style-loader";
+const { ModuleFederationPlugin } = require("webpack").container;
+const deps = require("./package.json").dependencies;
+
 
 const config = {
   entry: "./src/index.ts",
@@ -15,6 +18,27 @@ const config = {
   plugins: [
     new HtmlWebpackPlugin({
       template: "./public/index.html",
+    }),
+    new ModuleFederationPlugin({
+      name: "app1",
+      filename: "remoteEntry.js",
+      remotes: {
+        app2: "reactapp2@http://localhost:8081/remoteEntry.js",
+      },
+      shared: {
+        ...deps,
+        react: { singleton: true, eager: true, requiredVersion: deps.react },
+        "react-dom": {
+          singleton: true,
+          eager: true,
+          requiredVersion: deps["react-dom"],
+        },
+        "react-router-dom": {
+          singleton: true,
+          eager: true,
+          requiredVersion: deps["react-router-dom"],
+        },
+      },
     }),
 
     // Add your plugins here
