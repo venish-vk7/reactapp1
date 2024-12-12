@@ -5,7 +5,7 @@ const stylesHandler = "style-loader";
 
 const config = {
   entry: "./src/index.ts",
-  output: {
+  output: { 
     path: path.resolve(__dirname, "dist"),
   },
   devServer: {
